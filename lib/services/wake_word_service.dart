@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:speech_to_text/speech_recognition_result.dart' as stt;
 import 'tts_service.dart';
 import '../brain/router.dart';
 
