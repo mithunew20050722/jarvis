@@ -17,7 +17,7 @@ dependencies:
   connectivity_plus: ^5.0.2
 
   # Voice
-  speech_to_text: ^7.0.0
+  speech_to_text: ^6.6.0
   flutter_tts: ^4.0.2
 
   # Device control (replaces the Termux:API calls from the Termux version)
