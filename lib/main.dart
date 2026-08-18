@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'services/wake_word_service.dart';
 import 'services/tts_service.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const _channel = MethodChannel('jarvis/listener');
   String status = 'Starting...';
   final wakeWordService = WakeWordService();
 
@@ -38,10 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _init() async {
-    await [
+    final statuses = await [
       Permission.microphone,
       Permission.notification,
     ].request();
+
+    if (statuses[Permission.microphone]?.isGranted ?? false) {
+      try {
+        await _channel.invokeMethod('startListenerService');
+      } catch (_) {}
+    }
 
     await TtsService.speak('JARVIS ready. Background listening started.');
 
